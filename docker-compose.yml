@@ -5,7 +5,7 @@ services:
     image: ollama/ollama
     container_name: ollama_server
     ports:
-      - "11434:11434"
+      - "3101:11434"
     volumes:
       - ollama:/root/.ollama
     restart: unless-stopped
@@ -22,6 +22,8 @@ services:
     container_name: open-webui
     ports:
       - "3100:8080"
+    env_file:
+      - .env
     environment:
       - OLLAMA_BASE_URL=http://ollama_server:11434
       - OPENAI_API_BASE_URLS
@@ -36,3 +38,4 @@ volumes:
   ollama:
     external: true
   open-webui:
+    external: true
